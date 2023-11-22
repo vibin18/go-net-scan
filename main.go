@@ -35,8 +35,17 @@ func main() {
 
 	initArgparser()
 
-	netDevice := net.Interface{
-		Name: arg.Iface,
+	allIfaces, err := net.Interfaces()
+	if err != nil {
+		panic(err)
+	}
+	var myIface net.Interface
+	for _, i := range allIfaces {
+		if arg.Iface == i.Name {
+			myIface = i
+		} else {
+			panic("Inteface not found!")
+		}
 	}
 
 	var wg sync.WaitGroup
@@ -45,8 +54,8 @@ func main() {
 	// Start up a scan on each interface.
 	go func() {
 		defer wg.Done()
-		if err := scan(&netDevice); err != nil {
-			log.Printf("interface %v: %v", netDevice.Name, err)
+		if err := scan(&myIface); err != nil {
+			log.Printf("interface %v: %v", myIface.Name, err)
 		}
 	}()
 
