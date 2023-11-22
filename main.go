@@ -41,10 +41,11 @@ func main() {
 	}
 	var myIface net.Interface
 	for _, i := range allIfaces {
+		fmt.Println("Checking interface : ", i)
 		if arg.Iface == i.Name {
 			myIface = i
 		} else {
-			panic("Inteface not found!")
+			panic("Interface not found!")
 		}
 	}
 
