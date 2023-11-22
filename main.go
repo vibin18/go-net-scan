@@ -5,7 +5,6 @@ import (
 	"github.com/jessevdk/go-flags"
 	"go-net-scan/internal"
 	"log"
-	"net"
 	"os"
 	"sync"
 )
@@ -35,20 +34,9 @@ func main() {
 
 	initArgparser()
 
-	allIfaces, err := net.Interfaces()
+	myIface, err := validateInterface(arg.Iface)
 	if err != nil {
 		panic(err)
-	}
-	var myIface net.Interface
-	for _, i := range allIfaces {
-		fmt.Println("Checking interface : ", i)
-		if arg.Iface == i.Name {
-			myIface = i
-		}
-	}
-
-	if myIface.Name == "" {
-		panic("Interface not found")
 	}
 
 	var wg sync.WaitGroup
