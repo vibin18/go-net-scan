@@ -1,15 +1,42 @@
 package main
 
 import (
+	"fmt"
+	"github.com/jessevdk/go-flags"
+	"go-net-scan/internal"
 	"log"
 	"net"
+	"os"
 	"sync"
 )
 
+var (
+	argparser *flags.Parser
+	arg       opts.Params
+)
+
+func initArgparser() {
+	argparser = flags.NewParser(&arg, flags.Default)
+	_, err := argparser.Parse()
+
+	// check if there is a parse error
+	if err != nil {
+		if flagsErr, ok := err.(*flags.Error); ok && flagsErr.Type == flags.ErrHelp {
+			os.Exit(0)
+		} else {
+			fmt.Println()
+			argparser.WriteHelp(os.Stdout)
+			os.Exit(1)
+		}
+	}
+}
+
 func main() {
 
+	initArgparser()
+
 	netDevice := net.Interface{
-		Name: "en0",
+		Name: arg.Iface,
 	}
 
 	var wg sync.WaitGroup
