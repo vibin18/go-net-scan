@@ -44,9 +44,11 @@ func main() {
 		fmt.Println("Checking interface : ", i)
 		if arg.Iface == i.Name {
 			myIface = i
-		} else {
-			panic("Interface not found!")
 		}
+	}
+
+	if myIface.Name == "" {
+		panic("Interface not found")
 	}
 
 	var wg sync.WaitGroup
