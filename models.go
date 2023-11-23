@@ -45,7 +45,7 @@ func mapDevices() {
 		for _, item := range MappedList {
 			fmt.Printf("Checking if file mapped : %v is equals to %v\n", item.Mac, mac)
 			if mac == item.Mac {
-
+				fmt.Printf("Adding %v\n", item.Mac)
 				FinalMap[mac] = NetDevices{
 					ip,
 					item.Name,
