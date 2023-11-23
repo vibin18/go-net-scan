@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
-	"sync"
 )
 
 type NetDevices struct {
@@ -35,7 +34,7 @@ func getConf(file string) {
 }
 
 func addDevicesToNetworkList(ip net.IP, mac net.HardwareAddr) {
-	var lock sync.Mutex
+
 	myipString := fmt.Sprint(ip)
 	mymacString := fmt.Sprint(mac)
 	lock.Lock()

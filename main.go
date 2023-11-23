@@ -13,6 +13,7 @@ var (
 	argparser *flags.Parser
 	arg       opts.Params
 	DeviceMap = make(map[string]string)
+	lock      sync.Mutex
 )
 
 func initArgparser() {
@@ -59,7 +60,9 @@ func main() {
 	go func() {
 		defer wg.Done()
 		for {
+			lock.Lock()
 			fmt.Printf("List %v :", DeviceMap)
+			lock.Unlock()
 		}
 
 	}()
