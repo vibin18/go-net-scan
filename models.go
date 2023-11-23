@@ -10,7 +10,6 @@ import (
 
 type NetDevices struct {
 	IP   string
-	MAC  string
 	Name string
 }
 
@@ -18,8 +17,6 @@ type mapping struct {
 	Mac  string `yaml:"mac"`
 	Name string `yaml:"name"`
 }
-
-var MappedList []mapping
 
 func getConf(file string) {
 	yamlFile, err := ioutil.ReadFile(file)
@@ -33,11 +30,33 @@ func getConf(file string) {
 
 }
 
-func addDevicesToNetworkList(ip net.IP, mac net.HardwareAddr) {
-
+func addDevicesToNetworkMap(ip net.IP, mac net.HardwareAddr) {
 	myipString := fmt.Sprint(ip)
 	mymacString := fmt.Sprint(mac)
 	lock.Lock()
-	DeviceMap[mymacString] = myipString
+	NetworkDeviceMap[mymacString] = myipString
 	lock.Unlock()
+}
+
+// map the devices to names comparing the mapping file
+
+func mapDevices() {
+	for mac, ip := range NetworkDeviceMap {
+		for _, item := range MappedList {
+			if mac == item.Mac {
+				lock.Lock()
+				FinalMap[mac] = NetDevices{
+					ip,
+					item.Name,
+				}
+			} else {
+				FinalMap[mac] = NetDevices{
+					ip,
+					mac,
+				}
+				lock.Unlock()
+			}
+
+		}
+	}
 }

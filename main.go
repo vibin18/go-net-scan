@@ -10,10 +10,12 @@ import (
 )
 
 var (
-	argparser *flags.Parser
-	arg       opts.Params
-	DeviceMap = make(map[string]string)
-	lock      sync.Mutex
+	argparser        *flags.Parser
+	arg              opts.Params
+	NetworkDeviceMap = make(map[string]string)
+	lock             sync.Mutex
+	MappedList       []mapping
+	FinalMap         = make(map[string]NetDevices)
 )
 
 func initArgparser() {
@@ -51,7 +53,6 @@ func main() {
 	// Start up a scan on each interface.
 	go func() {
 		defer wg.Done()
-		fmt.Printf("List %v :", DeviceMap)
 		if err := scan(&myIface); err != nil {
 			log.Printf("interface %v: %v", myIface.Name, err)
 		}
@@ -60,8 +61,9 @@ func main() {
 	go func() {
 		defer wg.Done()
 		for {
+			mapDevices()
 			lock.Lock()
-			fmt.Printf("List %v :", DeviceMap)
+			fmt.Printf("List %v :", FinalMap)
 			lock.Unlock()
 		}
 
