@@ -90,7 +90,7 @@ func readARP(handle *pcap.Handle, iface *net.Interface, stop chan struct{}) {
 			// if for example someone else sends US an ARP request.  Doesn't much matter, though...
 			// all information is good information :)
 
-			addDevicesToNetworkList(arp.SourceProtAddress, arp.SourceHwAddress)
+			addDevicesToNetworkMap(arp.SourceProtAddress, arp.SourceHwAddress)
 			// log.Printf("IP %v is at %v", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
 		}
 	}
