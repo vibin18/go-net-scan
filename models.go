@@ -46,12 +46,12 @@ func mapDevices() {
 			fmt.Printf("Checking if file mapped : %v is equals to %v\n", item.Mac, mac)
 			if mac == item.Mac {
 				fmt.Printf("Adding %v as %v\n", item.Mac, item.Name)
-				FinalMap[mac] = NetDevices{
+				FinalMap[mac] = &NetDevices{
 					ip,
 					item.Name,
 				}
 			} else {
-				FinalMap[mac] = NetDevices{
+				FinalMap[mac] = &NetDevices{
 					ip,
 					mac,
 				}

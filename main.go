@@ -15,7 +15,7 @@ var (
 	NetworkDeviceMap = make(map[string]string)
 	lock             sync.Mutex
 	MappedList       []mapping
-	FinalMap         = make(map[string]NetDevices)
+	FinalMap         = make(map[string]*NetDevices)
 )
 
 func initArgparser() {
@@ -64,7 +64,7 @@ func main() {
 			lock.Lock()
 			mapDevices()
 			lock.Unlock()
-			fmt.Printf("List : %v\n", FinalMap)
+			fmt.Printf("List : %v\n", &FinalMap)
 
 		}
 
