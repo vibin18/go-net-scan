@@ -43,15 +43,15 @@ func addDevicesToNetworkMap(ip net.IP, mac net.HardwareAddr) {
 func mapDevices() {
 	for mac, ip := range NetworkDeviceMap {
 		for _, item := range MappedList {
-			fmt.Printf("Checking if file mapped : %v is equals to %v\n", item.Mac, mac)
 			if mac == item.Mac {
 				fmt.Printf("Adding %v as %v\n", item.Mac, item.Name)
-				FinalMap[mac] = &NetDevices{
+				FinalMap[mac] = NetDevices{
 					ip,
 					item.Name,
 				}
+				fmt.Printf("Added %v\n", FinalMap[mac])
 			} else {
-				FinalMap[mac] = &NetDevices{
+				FinalMap[mac] = NetDevices{
 					ip,
 					mac,
 				}

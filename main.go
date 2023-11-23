@@ -15,7 +15,7 @@ var (
 	NetworkDeviceMap = make(map[string]string)
 	lock             sync.Mutex
 	MappedList       []mapping
-	FinalMap         = make(map[string]*NetDevices)
+	FinalMap         = make(map[string]NetDevices)
 )
 
 func initArgparser() {
@@ -49,7 +49,7 @@ func main() {
 
 	var wg sync.WaitGroup
 
-	wg.Add(2)
+	wg.Add(3)
 	// Start up a scan on each interface.
 	go func() {
 		defer wg.Done()
@@ -64,7 +64,15 @@ func main() {
 			lock.Lock()
 			mapDevices()
 			lock.Unlock()
+		}
+
+	}()
+	go func() {
+		defer wg.Done()
+		for {
+			lock.Lock()
 			fmt.Printf("List : %v\n", FinalMap)
+			lock.Unlock()
 
 		}
 
