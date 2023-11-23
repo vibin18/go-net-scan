@@ -50,11 +50,11 @@ func mapDevices() {
 					item.Name,
 				}
 				fmt.Printf("Added %v\n", FinalMap[mac])
-			} else {
-				FinalMap[mac] = NetDevices{
-					ip,
-					mac,
-				}
+				//} else {
+				//	FinalMap[mac] = NetDevices{
+				//		ip,
+				//		mac,
+				//	}
 			}
 
 		}
