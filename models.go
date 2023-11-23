@@ -44,7 +44,6 @@ func mapDevices() {
 	for mac, ip := range NetworkDeviceMap {
 		for _, item := range MappedList {
 			if mac == item.Mac {
-				lock.Lock()
 				FinalMap[mac] = NetDevices{
 					ip,
 					item.Name,
@@ -54,7 +53,6 @@ func mapDevices() {
 					ip,
 					mac,
 				}
-				lock.Unlock()
 			}
 
 		}

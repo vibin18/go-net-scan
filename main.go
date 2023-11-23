@@ -61,10 +61,11 @@ func main() {
 	go func() {
 		defer wg.Done()
 		for {
-			mapDevices()
 			lock.Lock()
-			fmt.Printf("List %v :", FinalMap)
+			mapDevices()
 			lock.Unlock()
+			fmt.Printf("List : %v/n", FinalMap)
+
 		}
 
 	}()
