@@ -89,7 +89,9 @@ func readARP(handle *pcap.Handle, iface *net.Interface, stop chan struct{}) {
 			// Note:  we might get some packets here that aren't responses to ones we've sent,
 			// if for example someone else sends US an ARP request.  Doesn't much matter, though...
 			// all information is good information :)
-			log.Printf("IP %v is at %v", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
+
+			addDevicesToDB(arp.SourceProtAddress, arp.SourceHwAddress)
+			// log.Printf("IP %v is at %v", net.IP(arp.SourceProtAddress), net.HardwareAddr(arp.SourceHwAddress))
 		}
 	}
 }

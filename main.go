@@ -12,6 +12,7 @@ import (
 var (
 	argparser *flags.Parser
 	arg       opts.Params
+	FinalList *[]NetDevices
 )
 
 func initArgparser() {
@@ -34,6 +35,10 @@ func main() {
 
 	initArgparser()
 
+	// TODO : convert to structs
+
+	getConf(arg.MapFile)
+
 	myIface, err := validateInterface(arg.Iface)
 	if err != nil {
 		panic(err)
@@ -45,6 +50,7 @@ func main() {
 	// Start up a scan on each interface.
 	go func() {
 		defer wg.Done()
+		fmt.Printf("List %v :", FinalList)
 		if err := scan(&myIface); err != nil {
 			log.Printf("interface %v: %v", myIface.Name, err)
 		}
