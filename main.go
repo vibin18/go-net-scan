@@ -12,7 +12,7 @@ import (
 var (
 	argparser *flags.Parser
 	arg       opts.Params
-	FinalList *[]NetDevices
+	DeviceMap = make(map[string]string)
 )
 
 func initArgparser() {
@@ -46,14 +46,22 @@ func main() {
 
 	var wg sync.WaitGroup
 
-	wg.Add(1)
+	wg.Add(2)
 	// Start up a scan on each interface.
 	go func() {
 		defer wg.Done()
-		fmt.Printf("List %v :", FinalList)
+		fmt.Printf("List %v :", DeviceMap)
 		if err := scan(&myIface); err != nil {
 			log.Printf("interface %v: %v", myIface.Name, err)
 		}
+	}()
+
+	go func() {
+		defer wg.Done()
+		for {
+			fmt.Printf("List %v :", DeviceMap)
+		}
+
 	}()
 
 	wg.Wait()

@@ -6,10 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
-	"sync"
 )
-
-var lock sync.Mutex
 
 type NetDevices struct {
 	IP   string
@@ -36,32 +33,8 @@ func getConf(file string) {
 
 }
 
-func addDevicesToDB(ip net.IP, mac net.HardwareAddr) {
-	var wg sync.WaitGroup
-	n := NetDevices{}
-	db := []NetDevices{}
+func addDevicesToNetworkList(ip net.IP, mac net.HardwareAddr) {
 	myipString := fmt.Sprint(ip)
 	mymacString := fmt.Sprint(mac)
-
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		for _, i := range MappedList {
-			if mymacString == i.Mac {
-				n.MAC = i.Mac
-				n.Name = i.Name
-				n.IP = myipString
-			} else {
-				n.MAC = i.Mac
-				n.Name = i.Mac
-				n.IP = myipString
-			}
-			fmt.Println("Adding ", n)
-			db = append(db, n)
-			lock.Lock()
-			FinalList = &db
-			lock.Unlock()
-		}
-	}()
-	wg.Wait()
+	DeviceMap[mymacString] = myipString
 }
