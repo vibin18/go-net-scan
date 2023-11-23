@@ -64,7 +64,7 @@ func main() {
 			lock.Lock()
 			mapDevices()
 			lock.Unlock()
-			fmt.Printf("List : %v\n", &FinalMap)
+			fmt.Printf("List : %v\n", FinalMap)
 
 		}
 
