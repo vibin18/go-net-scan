@@ -52,7 +52,7 @@ func mapDevices() {
 				fmt.Printf("Added %v\n", FinalMap[mac])
 			} else {
 				if mac == "00:11:32:a4:7f:2f" {
-					fmt.Printf("Adding %v as %v\n", item.Mac, item.Name)
+					fmt.Printf("Adding 00:11:32:a4:7f:2f as MAC")
 				}
 				FinalMap[mac] = NetDevices{
 					ip,
