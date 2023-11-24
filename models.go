@@ -41,10 +41,6 @@ func addDevicesToNetworkMap(ip net.IP, mac net.HardwareAddr) {
 // map the devices to names comparing the mapping file
 
 func mapDevices() {
-	mapping{
-		Mac:  "test",
-		Name: "test1",
-	}
 	for mac, ip := range NetworkDeviceMap {
 		for _, item := range MappedList {
 			if mac == item.Mac {
