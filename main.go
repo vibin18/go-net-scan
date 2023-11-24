@@ -71,7 +71,10 @@ func main() {
 		defer wg.Done()
 		for {
 			lock.Lock()
-			fmt.Printf("List : %v\n", FinalMap)
+			err := PrettyPrint(FinalMap)
+			if err != nil {
+				println(err)
+			}
 			lock.Unlock()
 
 		}
