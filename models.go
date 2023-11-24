@@ -62,7 +62,7 @@ func mapDevices() {
 
 				FinalMap[mac] = NetDevices{
 					ip,
-					item.Mac,
+					mac,
 				}
 			}
 
