@@ -53,9 +53,6 @@ func mapDevices() {
 	for mac, ip := range NetworkDeviceMap {
 		for _, item := range MappedList {
 			if mac == item.Mac {
-				if FinalMap[mac].Name == item.Name {
-					continue
-				}
 				FinalMap[mac] = NetDevices{
 					ip,
 					item.Name,
