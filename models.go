@@ -58,13 +58,13 @@ func mapDevices() {
 					item.Name,
 				}
 			}
-			//if item.Mac != mac {
-			//
-			//	FinalMap[mac] = NetDevices{
-			//		ip,
-			//		mac,
-			//	}
-			//}
+			if item.Mac != mac {
+
+				FinalMap[mac] = NetDevices{
+					ip,
+					mac,
+				}
+			}
 
 		}
 	}
