@@ -57,13 +57,11 @@ func mapDevices() {
 					ip,
 					item.Name,
 				}
+				continue
 			}
-			if item.Mac != mac {
-
-				FinalMap[mac] = NetDevices{
-					ip,
-					mac,
-				}
+			FinalMap[mac] = NetDevices{
+				ip,
+				mac,
 			}
 
 		}
