@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
+	"time"
 )
 
 type NetDevices struct {
@@ -51,19 +52,25 @@ func PrettyPrint(v interface{}) (err error) {
 
 func mapDevices() {
 	for mac, ip := range NetworkDeviceMap {
+		fmt.Printf("> Taking {#%v} from NetworkDeviceMap\n", mac)
 		for _, item := range MappedList {
+			fmt.Printf(">   Checking match with  {#%v} {#%v}\n", mac, item.Mac)
 			if mac == item.Mac {
+				fmt.Printf(">   Match found!  {#%v} is {#%v}\n", mac, item.Mac)
 				FinalMap[mac] = NetDevices{
 					ip,
 					item.Name,
 				}
 				continue
 			}
+			fmt.Printf(">   Match NOT  found!  {#%v} is NOT {#%v}\n", mac, item.Mac)
 			FinalMap[mac] = NetDevices{
 				ip,
 				mac,
 			}
+
 		}
+		time.Sleep(10 * time.Second)
 		err := PrettyPrint(FinalMap)
 		if err != nil {
 			println(err)

@@ -61,9 +61,9 @@ func main() {
 	go func() {
 		defer wg.Done()
 		for {
-			lock.Lock()
+			//lock.Lock()
 			mapDevices()
-			lock.Unlock()
+			//lock.Unlock()
 		}
 
 	}()
