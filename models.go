@@ -62,7 +62,7 @@ func mapDevices() {
 				}
 				fmt.Printf(">   	Added {#%v} to FinalMap\n", item.Mac)
 				fmt.Printf(">   		FinalMap[mac] is : {#%v} in FinalMap\n", FinalMap[item.Mac])
-				return
+				break
 			}
 			fmt.Printf(">   	Match NOT  found!  {#%v} is NOT {#%v}\n", mac, item.Mac)
 			FinalMap[mac] = &NetDevices{
