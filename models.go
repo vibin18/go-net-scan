@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
-	"time"
 )
 
 type NetDevices struct {
@@ -72,7 +71,6 @@ func mapDevices() {
 			}
 
 		}
-		time.Sleep(10 * time.Second)
 		err := PrettyPrint(FinalMap)
 		if err != nil {
 			println(err)
