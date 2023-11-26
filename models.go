@@ -65,10 +65,6 @@ func mapDevices() {
 			}
 
 		}
-		err := PrettyPrint(FinalMap)
-		if err != nil {
-			println(err)
-		}
 	}
 }
 
