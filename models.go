@@ -57,8 +57,7 @@ func mapDevices() {
 			fmt.Printf(">  Checking match with  {#%v} {#%v}\n", mac, item.Mac)
 			if mac == item.Mac {
 				fmt.Printf(">   	Match found!  {#%v} is {#%v}\n", mac, item.Mac)
-
-				FinalMap[mac] = NetDevices{
+				FinalMap[mac] = &NetDevices{
 					ip,
 					item.Name,
 				}
@@ -67,7 +66,7 @@ func mapDevices() {
 				continue
 			}
 			fmt.Printf(">   	Match NOT  found!  {#%v} is NOT {#%v}\n", mac, item.Mac)
-			FinalMap[mac] = NetDevices{
+			FinalMap[mac] = &NetDevices{
 				ip,
 				mac,
 			}
