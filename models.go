@@ -51,21 +51,15 @@ func PrettyPrint(v interface{}) (err error) {
 
 func mapDevices() {
 	for mac, ip := range NetworkDeviceMap {
-		fmt.Printf(">Taking {#%v} from NetworkDeviceMap\n", mac)
 		for _, item := range MappedList {
-			fmt.Printf(">  Checking match with  {#%v} {#%v}\n", mac, item.Mac)
 			if mac == item.Mac {
-				fmt.Printf(">   	Match found!  {#%v} is {#%v}\n", mac, item.Mac)
-				FinalMap[mac] = &NetDevices{
+				FinalMap[mac] = NetDevices{
 					ip,
 					item.Name,
 				}
-				fmt.Printf(">   	Added {#%v} to FinalMap\n", item.Mac)
-				fmt.Printf(">   		FinalMap[mac] is : {#%v} in FinalMap\n", FinalMap[item.Mac])
 				break
 			}
-			fmt.Printf(">   	Match NOT  found!  {#%v} is NOT {#%v}\n", mac, item.Mac)
-			FinalMap[mac] = &NetDevices{
+			FinalMap[mac] = NetDevices{
 				ip,
 				mac,
 			}

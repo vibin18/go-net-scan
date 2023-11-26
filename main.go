@@ -15,7 +15,7 @@ var (
 	NetworkDeviceMap = make(map[string]string)
 	lock             sync.Mutex
 	MappedList       []mapping
-	FinalMap         = make(map[string]*NetDevices)
+	FinalMap         = make(map[string]NetDevices)
 )
 
 func initArgparser() {
@@ -67,20 +67,19 @@ func main() {
 		}
 
 	}()
-	//go func() {
-	//	defer wg.Done()
-	//	for {
-	//		lock.Lock()
-	//		err := PrettyPrint(FinalMap)
-	//		if err != nil {
-	//			println(err)
-	//		}
-	//		lock.Unlock()
-	//		time.Sleep(30 * time.Second)
-	//
-	//	}
-	//
-	//}()
+	go func() {
+		defer wg.Done()
+		for {
+			lock.Lock()
+			err := PrettyPrint(FinalMap)
+			if err != nil {
+				println(err)
+			}
+			lock.Unlock()
+
+		}
+
+	}()
 
 	wg.Wait()
 
