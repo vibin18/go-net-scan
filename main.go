@@ -7,7 +7,6 @@ import (
 	"log"
 	"os"
 	"sync"
-	"time"
 )
 
 var (
@@ -50,7 +49,7 @@ func main() {
 
 	var wg sync.WaitGroup
 
-	wg.Add(3)
+	wg.Add(2)
 	// Start up a scan on each interface.
 	go func() {
 		defer wg.Done()
@@ -68,20 +67,20 @@ func main() {
 		}
 
 	}()
-	go func() {
-		defer wg.Done()
-		for {
-			lock.Lock()
-			err := PrettyPrint(FinalMap)
-			if err != nil {
-				println(err)
-			}
-			lock.Unlock()
-			time.Sleep(30 * time.Second)
-
-		}
-
-	}()
+	//go func() {
+	//	defer wg.Done()
+	//	for {
+	//		lock.Lock()
+	//		err := PrettyPrint(FinalMap)
+	//		if err != nil {
+	//			println(err)
+	//		}
+	//		lock.Unlock()
+	//		time.Sleep(30 * time.Second)
+	//
+	//	}
+	//
+	//}()
 
 	wg.Wait()
 
