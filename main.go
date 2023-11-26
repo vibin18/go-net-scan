@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"time"
 )
 
 var (
@@ -76,6 +77,7 @@ func main() {
 				println(err)
 			}
 			lock.Unlock()
+			time.Sleep(2 * time.Second)
 
 		}
 
